@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  sports-side-server:
+    container_name: sports-side-server
+    command: yarn dev -L
+    networks:
+      - local-network
+
+  sports-side-mysql-5.7:
+    image: mysql:5.7
+    restart: always
+    networks:
+      - local-network
+    environment:
+      MYSQL_DATABASE: 'sports-side'
+      MYSQL_USER: 'sports'
+      MYSQL_PASSWORD: 'sports!@!@'
+      MYSQL_ROOT_PASSWORD: 'sports!@!@'
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - datastore:/var/lib/mysql
+
+volumes:
+  datastore:
+
+networks:
+  local-network:

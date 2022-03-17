@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+  # node-app:
+  #   build: .
+  #   image: node-app
+  #   environment:
+  #     - MONGODB_URL=mongodb://mongodb:27017/node-boilerplate
+  #   ports:
+  #     - '3000:3000'
+  #   depends_on:
+  #     - sports-side-mysql-5.7
+  #   volumes:
+  #     - .:/usr/src/node-app
+  #   networks:
+  #     - local-network
+
+  sports-side-mysql-5.7:
+    image: mysql:5.7
+    restart: always
+    networks:
+      - local-network
+    environment:
+      MYSQL_DATABASE: 'sports-side'
+      MYSQL_USER: 'sports'
+      MYSQL_PASSWORD: 'sports!@!@123'
+      MYSQL_ROOT_PASSWORD: 'sports!@!@'
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - datastore:/var/lib/mysql
+
+volumes:
+  datastore:
+
+networks:
+  local-network:
+    driver: bridge
